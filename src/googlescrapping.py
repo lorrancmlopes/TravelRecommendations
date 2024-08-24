@@ -5,6 +5,7 @@ import re
 
 # Read cities from CSV
 cities_df = pd.read_csv('../data/worldcities.csv')
+cities_df = cities_df.head(10)
 
 # Define headers for the HTTP request
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'}
@@ -26,29 +27,22 @@ for index, row in cities_df.iterrows():
     html = requests.get(url, headers=headers)
     soup = BeautifulSoup(html.text, 'html.parser')
     
-    # Find all search result links
-    all_links = soup.find_all('a')
+    # Find the first search result link
+    allData = soup.find("div", {"class": "g"})
     
-    code_found = False
-    for link_tag in all_links:
-        link = link_tag.get('href')
-        print(link)
+    if allData:
+        link = allData.find('a').get('href')
         
-        # Check if the link is from Tripadvisor
-        if 'tripadvisor' in link:
-            # Extract the code using regex
-            code_match = re.search(r'-g(\d+)-', link)
-            if code_match:
-                code = code_match.group(1)
-                # Store the city and code in the results list
-                results.append([city, code])
-                print(f'Found code {code} for {city}, {country}')
-                code_found = True
-                break
-    
-    # If no code was found, add a placeholder
-    if not code_found:
-        results.append([city, 'Code not found'])
+        # Extract the code using regex
+        code_match = re.search(r'-g(\d+)-', link)
+        if code_match:
+            code = code_match.group(1)
+            # Store the city and code in the results list
+            results.append([city, code])
+        else:
+            results.append([city, 'Code not found'])
+    else:
+        results.append([city, 'No results found'])
 
     # Print progress
     print(f'Processed {index + 1}/{total_cities}: {city}, {country}')
