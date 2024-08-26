@@ -96,7 +96,7 @@ async def run_scraper(city: str, code: str, city_name: str):
             df = pd.DataFrame(results)
             
             # Save results to a CSV file
-            df.to_csv('attractions_cities2.csv', index=False, mode='a', header=False)
+            df.to_csv('../data/attractions_cities.csv', index=False, mode='a', header=False)
             
             print(f"Scraping for {city} complete. Data saved.")
 
