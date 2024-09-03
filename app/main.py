@@ -7,7 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 app = FastAPI()
 
 # Load the dataset
-df = pd.read_csv('../../TravelRecommendations/data/cleaned_dataset.csv')  
+df = pd.read_csv('../data/cleaned_dataset.csv')  
 
 # Vectorize the descriptions using TF-IDF
 tfidf_vectorizer = TfidfVectorizer()
@@ -31,7 +31,6 @@ def query_route(query: str = Query(..., description="Search query")):
     similarity_scores = list(enumerate(cosine_sim[0]))
     similarity_scores = sorted(similarity_scores, key=lambda x: x[1], reverse=True)
     
-    # Filter results with relevance score of at least 0.10 and limit to 10 results
     results = []
     for idx, score in similarity_scores:
         if score > 0.0:
@@ -48,4 +47,4 @@ def query_route(query: str = Query(..., description="Search query")):
 
 # Run the API
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("main:app", host="0.0.0.0", port=8080, reload=True)
