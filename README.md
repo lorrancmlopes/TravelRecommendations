@@ -9,8 +9,8 @@ Travel recomendation system
 ## Running the Project with Docker
 
 ```bash
-docker build -t nlp_aps1 .
-docker run -d -p 9876:8888 nlp_aps1
+docker build -t TravelRecommendations
+docker run -d -p 9876:8888 TravelRecommendations
 ```
 
 ## Authors
