@@ -7,7 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 app = FastAPI()
 
 # Load the dataset
-df = pd.read_csv('../data/cleaned_dataset.csv')  
+df = pd.read_csv('data/cleaned_dataset.csv')  
 
 # Vectorize the descriptions using TF-IDF
 tfidf_vectorizer = TfidfVectorizer()
