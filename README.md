@@ -60,7 +60,7 @@ To set up the project locally, follow these steps:
 
 1. Clone this repository:
     ```bash
-    git clone https://github.com/lorrancmlopes/TravelRecommendations/
+    git clone https://github.com/lorrancmlopes/travelrecommendations/
     ```
 2. Create a virtual environment:
     ```bash
